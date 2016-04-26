@@ -68,15 +68,13 @@ namespace HomeTask3
 
         public static void AddToDictionary(Dictionary<char, int> someDictionary, char someChar)
         {
-            int numberOfSuchKeys = 1;
             if (!someDictionary.ContainsKey(someChar))
             {
                 someDictionary.Add(someChar, 1);
             }
             else
             {
-                someDictionary.TryGetValue(someChar, out numberOfSuchKeys);
-                someDictionary[someChar] = ++numberOfSuchKeys;
+                someDictionary[someChar]++;
             }
         }
 
@@ -93,11 +91,11 @@ namespace HomeTask3
         {
             if (index < someString.Length)
             {
-                return Convert.ToChar(someString[index]);
+                return someString[index];
             }
             else
             {
-                return Convert.ToChar(someString[index % someString.Length]);
+                return someString[index % someString.Length];
             }
         }
 
