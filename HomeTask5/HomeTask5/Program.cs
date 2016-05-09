@@ -10,20 +10,29 @@ namespace HomeTask5
     {
         static void Main(string[] args)
         {
-            Account ivanov = new Account("0001", "иванов иван иванович", 1000);
-            AccumulativeAccount petrov = new AccumulativeAccount(1, "0002", "петров петр петрович", 100);
-            CheckingAccount ganchin = new CheckingAccount(50, "0003", "ганчин алексей федотович", 125);
-            MetalAccount semenov = new MetalAccount(25, "0004", "семенов семен борисович", 100);
-            ivanov.Withdraw(800);
-            petrov.Capitalize();
-            ganchin.SubscriptionWithdraw();
-            semenov.Withdraw(50);
+            //Account ivanov = new Account("0001", "иванов иван иванович", 1000);
+            //AccumulativeAccount petrov = new AccumulativeAccount(1, "0002", "петров петр петрович", 100);
+            //CheckingAccount ganchin = new CheckingAccount(50, "0003", "ганчин алексей федотович", 125);
+            //MetalAccount semenov = new MetalAccount(25, "0004", "семенов семен борисович", 100);
+            //ivanov.Withdraw(800);
+            //petrov.Capitalize();
+            //ganchin.SubscriptionWithdraw();
+            //semenov.Withdraw(50);
 
-            Console.WriteLine(ivanov.Owner + " " + ivanov.CurrentSum);
-            Console.WriteLine(petrov.Owner + " " + petrov.CurrentSum);
-            Console.WriteLine(ganchin.Owner + " " + ganchin.CurrentSum);
-            Console.WriteLine(semenov.Owner + " " + semenov.CurrentSum + " " + semenov.MetalWeight);
+            //Console.WriteLine(ivanov.Owner + " " + ivanov.CurrentSum);
+            //Console.WriteLine(petrov.Owner + " " + petrov.CurrentSum);
+            //Console.WriteLine(ganchin.Owner + " " + ganchin.CurrentSum);
+            //Console.WriteLine(semenov.Owner + " " + semenov.CurrentSum + " " + semenov.MetalWeight);
 
+
+            CommonClient Petrov = new CommonClient("Petrov Petr Petrovich", null);
+            Petrov.CreateAccount("001", "Metal", 100);
+            Petrov.CreateAccount("002", "Saving", 200);
+            Petrov.ShowAllAccounts();
+            Bank Bank = new Bank();
+            Bank.Transfer(Petrov.GetAccount("001"), Petrov.GetAccount("002"), 100);
+
+            
 
             //List<Account> accounts = new List<Account>();
 

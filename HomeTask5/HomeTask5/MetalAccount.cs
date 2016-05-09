@@ -29,33 +29,47 @@ namespace HomeTask5
             get { return _metalWeight * _metalCourse; }
         }
 
-        public override void AddFunds(double sum)
+        public override bool AddFunds(double sum)
         {
             if (Open)
             {
                 if (sum > 0)
                 {
                     _metalWeight = sum / _metalWeight;
+                    return true;
                 }
                 else
                 {
                     Console.WriteLine("You can't add negative sum");
+                    return false;
                 }
+            }
+            else
+            {
+                Console.WriteLine("Account is closed");
+                return false;
             }   
         }
 
-        public override void Withdraw(double sum)
+        public override bool Withdraw(double sum)
         {
             if (Open)
             {
                 if (sum / _metalCourse <= _metalWeight)
                 {
                     _metalWeight -= sum / _metalCourse;
+                    return true;
                 }
                 else
                 {
                     Console.WriteLine("You don't have enough funds");
+                    return false;
                 }
+            }
+            else
+            {
+                Console.WriteLine("Account is closed");
+                return false;
             }
         }
     }

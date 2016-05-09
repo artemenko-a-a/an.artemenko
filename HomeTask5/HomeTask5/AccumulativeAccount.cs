@@ -24,27 +24,31 @@ namespace HomeTask5
             }
             _firstPay = accountStartSum;
         }
-        public override void AddFunds(double sum)
+        public override bool AddFunds(double sum)
         {
             if (sum < 0)
             {
                 Console.WriteLine("You can't add negative funds");
+                return false;
             }
             else
             {
                 base.AddFunds(sum);
+                return true;
             }
         }
 
-        public override void Withdraw(double sum)
+        public override bool Withdraw(double sum)
         {
             if ( CurrentSum - sum < _firstPay)
             {
                 Console.WriteLine("You can't leave less, than " + _firstPay);
+                return false;
             }
             else
             {
                 base.Withdraw(sum);
+                return true;
             }
         }
 

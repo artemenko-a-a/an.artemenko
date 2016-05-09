@@ -40,41 +40,47 @@ namespace HomeTask5
             _open = true;
         }
 
-        virtual public void AddFunds(double sum)
+        virtual public bool AddFunds(double sum)
         {
             if (_open)
             {
                 if (sum >= 0)
                 {
                     _currentSum += sum;
+                    return true;
                 }
                 else
                 {
                     Console.WriteLine("You can't add negative sum");
+                    return false;
                 }
             }
             else
             {
                 Console.WriteLine("Account is closed");
+                return false;
             }
         }
 
-        virtual public void Withdraw(double sum)
+        virtual public bool Withdraw(double sum)
         {
             if (_open)
             {
                 if (sum <= _currentSum)
                 {
                     _currentSum -= sum;
+                    return true;
                 }
                 else
                 {
                     Console.WriteLine("You don't have enough funds");
+                    return false;
                 }
             }
             else
             {
                 Console.WriteLine("Account is closed");
+                return false;
             }
         }
 
