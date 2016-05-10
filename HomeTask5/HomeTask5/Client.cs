@@ -30,6 +30,7 @@ namespace HomeTask5
         {
             get
             {
+                _totalSum = 0;
                 foreach (var account in _accounts)
                 {
                     _totalSum += account.CurrentSum;

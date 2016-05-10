@@ -25,20 +25,6 @@ namespace HomeTask5
             _firstPay = accountStartSum;
         }
 
-        public override bool AddFunds(double sum)
-        {
-            if (sum < 0)
-            {
-                Console.WriteLine("You can't add negative funds");
-                return false;
-            }
-            else
-            {
-                base.AddFunds(sum);
-                return true;
-            }
-        }
-
         public override bool Withdraw(double sum)
         {
             if ( CurrentSum - sum < _firstPay)
