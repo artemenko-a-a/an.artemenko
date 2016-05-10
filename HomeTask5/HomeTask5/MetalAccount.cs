@@ -19,6 +19,12 @@ namespace HomeTask5
             _metalWeight = accountStartSum / _metalCourse;
         }
 
+        public static MetalAccount CreateAccount(double metalCourse, string accountNumber, string accountOwner, double startSum)
+        {
+           MetalAccount metalAccount = new MetalAccount(metalCourse, accountNumber, accountOwner, startSum);
+           return metalAccount;
+        }
+
         public double MetalWeight
         {
             get { return _metalWeight; }

@@ -15,12 +15,7 @@ namespace HomeTask5
         public Client(string fio, List<Account> accounts)
         {
             _fio = fio;
-            if (accounts == null)
-            {
-                List<Account> emptyList = new List<Account>();
-                _accounts = emptyList;
-            }
-            else
+            if (accounts != null)
             {
                 _accounts = accounts;
             }
@@ -61,44 +56,31 @@ namespace HomeTask5
             get { return _fio; }
         }
 
-        public virtual void CreateSavingAccount(string accountNumber, double startSum)
-        {
-            Account savingAccount = new Account(accountNumber, _fio, startSum);
-            _accounts.Add(savingAccount);
-        }
-
-        public virtual void CreateAccumulativeAccount(double interestRate, string accountNumber, double startSum)
-        {
-            AccumulativeAccount accumulativeAccount = new AccumulativeAccount(interestRate, accountNumber, _fio, startSum);
-            _accounts.Add(accumulativeAccount);
-        }
-
-        public virtual void CreateCheckingAccount(double subscriptionFee, string accountNumber, double startSum)
-        {
-            CheckingAccount checkingAccount = new CheckingAccount(subscriptionFee, accountNumber, _fio, startSum);
-            _accounts.Add(checkingAccount);
-        }
-
-        public virtual void CreateMetalAccount(double metalCourse, string accountNumber, double startSum)
-        {
-            MetalAccount metalAccount = new MetalAccount(metalCourse, accountNumber, _fio, startSum);
-            _accounts.Add(metalAccount);
-        }
-
         public virtual void AddAccount(Account clientsAccount)
         {
             _accounts.Add(clientsAccount);
         }
 
-        public void CloseAccount(string accountNumber)
+        public bool CloseAccount(string accountNumber)
         {
             foreach (var account in _accounts)
             {
                 if (account.Number == accountNumber)
                 {
-                    account.Close();
+                    if (account.Open)
+                    {
+                        account.Close();
+                        return true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Account is already closed.");
+                        return false;
+                    }
                 }
             }
+            Console.WriteLine("Client {0} doesn't have such account", _fio);
+            return false;
         }
 
         public double ShowFundsOnAccount(string clientsAccountNumber)

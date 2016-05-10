@@ -39,6 +39,12 @@ namespace HomeTask5
             _open = true;
         }
 
+        public static Account CreateAccount(string accountNumber, string accountOwner, double accountStartSum)
+        {
+            Account savingsAccount = new Account(accountNumber, accountOwner, accountStartSum);
+            return savingsAccount;
+        }
+
         virtual public bool AddFunds(double sum)
         {
             if (_open)
@@ -70,17 +76,11 @@ namespace HomeTask5
                     _currentSum -= sum;
                     return true;
                 }
-                else
-                {
-                    Console.WriteLine("You don't have enough funds");
-                    return false;
-                }
-            }
-            else
-            {
-                Console.WriteLine("Account is closed");
+                Console.WriteLine("You don't have enough funds");
                 return false;
             }
+            Console.WriteLine("Account is closed");
+            return false;
         }
 
         public void Close()

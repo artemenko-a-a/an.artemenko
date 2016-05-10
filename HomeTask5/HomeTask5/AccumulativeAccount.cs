@@ -25,6 +25,12 @@ namespace HomeTask5
             _firstPay = accountStartSum;
         }
 
+        public static AccumulativeAccount CreateAccount(double interestRate, string accountNumber, string accountOwner, double startSum)
+        {
+            AccumulativeAccount accumulativeAccount = new AccumulativeAccount(interestRate, accountNumber, accountOwner, startSum);
+            return accumulativeAccount;
+        }
+
         public override bool Withdraw(double sum)
         {
             if ( CurrentSum - sum < _firstPay)

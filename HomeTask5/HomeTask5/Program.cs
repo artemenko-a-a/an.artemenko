@@ -27,8 +27,8 @@ namespace HomeTask5
 
             CommonClient Petrov = new CommonClient("Petrov Petr Petrovich", null);
             VIPClient Smirnov = new VIPClient("Smirnov Ivan Aleksandrovich", null);
-            Petrov.CreateMetalAccount(30, "001", 900);
-            Smirnov.CreateCheckingAccount(10, "002", 1000);
+            Petrov.AddAccount(MetalAccount.CreateAccount(30, "001", Petrov.FIO, 900));
+            Smirnov.AddAccount(CheckingAccount.CreateAccount(10, "002", Smirnov.FIO, 1000));
             Bank Bank = new Bank();
             Bank.Transfer(Smirnov.GetAccount("002"), Petrov.GetAccount("001"), 100);
             Petrov.ShowAllAccounts();

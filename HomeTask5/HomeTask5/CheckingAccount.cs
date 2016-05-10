@@ -23,6 +23,12 @@ namespace HomeTask5
             }
         }
 
+        public static CheckingAccount CreateAccount(double subscriptionFee, string accountNumber, string accountOwner, double startSum)
+        {
+            CheckingAccount checkingAccount = new CheckingAccount(subscriptionFee, accountNumber, accountOwner, startSum);
+            return checkingAccount;
+        }
+
         public double SubscriptionFee
         {
             get { return _subscriptionFee; }
