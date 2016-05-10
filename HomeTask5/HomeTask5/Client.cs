@@ -46,15 +46,11 @@ namespace HomeTask5
                 {
                     return account;
                 }
-                else
-                {
-                    continue;
-                }
             }
             return null;
         }
 
-        public int AccountsNumber
+        public int AccountsCount
         {
             get { return _accounts.Count; }
         }
@@ -64,40 +60,31 @@ namespace HomeTask5
             get { return _fio; }
         }
 
-        virtual public void CreateAccount(string accountNumber, string accountType, double startSum)
+        public virtual void CreateSavingAccount(string accountNumber, double startSum)
         {
-            switch (accountType)
-            {
-                case "Saving" :
-                    Account savingAccount = new Account(accountNumber, _fio, startSum);
-                    _accounts.Add(savingAccount);
-                    break;
-                case "Accumulative":
-                    Console.WriteLine("You're trying to create Accumulative Account, please enter interest rate to continue: ");
-                    double interestRate = Convert.ToDouble(Console.ReadLine());
-                    AccumulativeAccount accumulativeAccount = new AccumulativeAccount(interestRate, accountNumber, _fio, startSum);
-                    _accounts.Add(accumulativeAccount);
-                    break;
-                case "Checking":
-                    Console.WriteLine("You're trying to create Checking Account, please enter subcsription fee to continue: ");
-                    double subscriptionFee = Convert.ToDouble(Console.ReadLine());
-                    CheckingAccount checkingAccount = new CheckingAccount(subscriptionFee, accountNumber, _fio, startSum);
-                    _accounts.Add(checkingAccount);
-                    break;
-                case "Metal":
-                    Console.WriteLine("You're trying to create Metal Account, please enter metal course to continue: ");
-                    double metalCourse = Convert.ToDouble(Console.ReadLine());
-                    MetalAccount metalAccount = new MetalAccount(metalCourse, accountNumber, _fio, startSum);
-                    _accounts.Add(metalAccount);
-                    break;
-                default:
-                    Console.WriteLine("There is no such account type.");
-                    break;
-            }
-            
+            Account savingAccount = new Account(accountNumber, _fio, startSum);
+            _accounts.Add(savingAccount);
         }
 
-        virtual public void AddAccount(Account clientsAccount)
+        public virtual void CreateAccumulativeAccount(double interestRate, string accountNumber, double startSum)
+        {
+            AccumulativeAccount accumulativeAccount = new AccumulativeAccount(interestRate, accountNumber, _fio, startSum);
+            _accounts.Add(accumulativeAccount);
+        }
+
+        public virtual void CreateCheckingAccount(double subscriptionFee, string accountNumber, double startSum)
+        {
+            CheckingAccount checkingAccount = new CheckingAccount(subscriptionFee, accountNumber, _fio, startSum);
+            _accounts.Add(checkingAccount);
+        }
+
+        public virtual void CreateMetalAccount(double metalCourse, string accountNumber, double startSum)
+        {
+            MetalAccount metalAccount = new MetalAccount(metalCourse, accountNumber, _fio, startSum);
+            _accounts.Add(metalAccount);
+        }
+
+        public virtual void AddAccount(Account clientsAccount)
         {
             _accounts.Add(clientsAccount);
         }
@@ -110,8 +97,6 @@ namespace HomeTask5
                 {
                     account.Close();
                 }
-                else
-                    continue; 
             }
         }
 
@@ -122,9 +107,7 @@ namespace HomeTask5
                 if (account.Number == clientsAccountNumber)
                 {
                     return account.CurrentSum;
-                }
-                else
-                    continue; 
+                } 
             }
             return 0;
         }

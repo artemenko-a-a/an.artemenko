@@ -8,7 +8,6 @@ namespace HomeTask5
 {
     class Account
     {
-
         private double _currentSum;
         private bool _open;
 

@@ -35,7 +35,7 @@ namespace HomeTask5
             {
                 if (sum > 0)
                 {
-                    _metalWeight = sum / _metalWeight;
+                    _metalWeight += sum / _metalWeight;
                     return true;
                 }
                 else

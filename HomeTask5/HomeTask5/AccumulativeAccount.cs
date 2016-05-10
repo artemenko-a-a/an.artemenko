@@ -24,6 +24,7 @@ namespace HomeTask5
             }
             _firstPay = accountStartSum;
         }
+
         public override bool AddFunds(double sum)
         {
             if (sum < 0)
@@ -51,7 +52,6 @@ namespace HomeTask5
                 return true;
             }
         }
-
 
         public double InterestRate
         {
