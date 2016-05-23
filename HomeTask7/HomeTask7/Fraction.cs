@@ -1,1 +1,30 @@
-﻿using System;namespace HomeTask7{	public struct Fraction : IComparable	{		public int X { get; private set;}		public int Y { get; private set;}		public Fraction(int x, int y)		{			if (y > 0 && x > 0) 			{				int n = GetNOD(x, y);				X = x / n;				Y = y / n;			}			else			{				Console.WriteLine ("Дробь должна быть больше нуля");				X = 0;				Y = 1;			}		}		public override string ToString ()		{			return $"{X}/{Y}";		}		private static int GetNOD(int x, int y)		{			while (x != y)			{				if (x > y)				{					if (x % y != 0)					{						x = x % y;					}					else					{						x = y;					}				}				else				{					if (y % x != 0)					{						y = y % x;					}					else					{						y = x;					}				}				}			return x;		}		public Fraction Sum(Fraction someFraction)		{			int newX;			int newY;			if (Y != someFraction.Y)			{				newX = X * someFraction.Y + someFraction.X * Y;				newY = Y * someFraction.Y;			}			else			{				newX = X - someFraction.X;				newY = Y;			}			return new Fraction (newX, newY);		}		public Fraction Sub(Fraction someFraction)		{			int newX;			int newY;			if (Y != someFraction.Y)			{				if (X * someFraction.Y >= someFraction.X * Y)				{					newX = X * someFraction.Y - someFraction.X * Y;					newY = Y * someFraction.Y;				}				else				{					Console.WriteLine ("Нельзя выполнить вычитание, поскольку первая дробь меньше второй.");					newX = X;					newY = Y;				}			}			else			{				if (X >= someFraction.X)				{					newX = X - someFraction.X;					newY = Y;				}				else				{					Console.WriteLine ("Нельзя выполнить вычитание, поскольку первая дробь меньше второй.");					newX = X;					newY = Y;				}			}			return new Fraction (newX, newY);		}		public Fraction Mul(Fraction someFraction)		{			return new Fraction (X * someFraction.X, Y * someFraction.Y);		}		public Fraction Div(Fraction someFraction)		{			int newX;			int newY;			if (someFraction.X != 0)			{				newX = X * someFraction.Y;				newY = Y * someFraction.X;			}			else			{				Console.WriteLine ("Нельзя делить на ноль.");				newX = X;				newY = Y;			}			return new Fraction (newX, newY);		}		public int CompareTo (object obj)		{			Fraction someFraction = (Fraction)obj;			if (Y != someFraction.Y)			{				if (X * someFraction.Y > someFraction.X * Y)				{					return 1;				}				if (X * someFraction.Y < someFraction.X * Y)				{					return -1;				}				return 0;			}			if (X > someFraction.X)			{				return 1;			}			if (X < someFraction.X)			{				return -1;			}			return 0;		}	}}
+﻿using System;namespace HomeTask7{	public struct Fraction : IComparable	{		public int X { get; private set;}		public int Y { get; private set;}		public Fraction(int x, int y)		{			if (y > 0 && x >= 0) 			{				int n = GetNOD(x, y);				X = x / n;				Y = y / n;			}			else			{				Console.WriteLine ("Дробь не может быть отрицательной");				X = 0;				Y = 1;			}		}		public override string ToString ()		{			return $"{X}/{Y}";		}		private static int GetNOD(int x, int y)		{            if (x != 0)
+            {
+                while (x != y)
+                {
+                    if (x > y)
+                    {
+                        if (x % y != 0)
+                        {
+                            x = x % y;
+                        }
+                        else
+                        {
+                            x = y;
+                        }
+                    }
+                    else
+                    {
+                        if (y % x != 0)
+                        {
+                            y = y % x;
+                        }
+                        else
+                        {
+                            y = x;
+                        }
+                    }
+                }
+                return x;
+            }
+            return 1;		}		public Fraction Sum(Fraction someFraction)		{			int newX;			int newY;			if (Y != someFraction.Y)			{				newX = X * someFraction.Y + someFraction.X * Y;				newY = Y * someFraction.Y;			}			else			{				newX = X - someFraction.X;				newY = Y;			}			return new Fraction (newX, newY);		}		public Fraction Sub(Fraction someFraction)		{			int newX;			int newY;			if (Y != someFraction.Y)			{				if (X * someFraction.Y >= someFraction.X * Y)				{					newX = X * someFraction.Y - someFraction.X * Y;					newY = Y * someFraction.Y;				}				else				{					Console.WriteLine ("Нельзя выполнить вычитание, поскольку первая дробь меньше второй.");					newX = X;					newY = Y;				}			}			else			{				if (X >= someFraction.X)				{					newX = X - someFraction.X;					newY = Y;				}				else				{					Console.WriteLine ("Нельзя выполнить вычитание, поскольку первая дробь меньше второй.");					newX = X;					newY = Y;				}			}			return new Fraction (newX, newY);		}		public Fraction Mul(Fraction someFraction)		{			return new Fraction (X * someFraction.X, Y * someFraction.Y);		}		public Fraction Div(Fraction someFraction)		{			int newX;			int newY;			if (someFraction.X != 0)			{				newX = X * someFraction.Y;				newY = Y * someFraction.X;			}			else			{				Console.WriteLine ("Нельзя делить на ноль.");				newX = X;				newY = Y;			}			return new Fraction (newX, newY);		}		public int CompareTo (object obj)		{			Fraction someFraction = (Fraction)obj;			if (Y != someFraction.Y)			{				if (X * someFraction.Y > someFraction.X * Y)				{					return 1;				}				if (X * someFraction.Y < someFraction.X * Y)				{					return -1;				}				return 0;			}			if (X > someFraction.X)			{				return 1;			}			if (X < someFraction.X)			{				return -1;			}			return 0;		}	}}
