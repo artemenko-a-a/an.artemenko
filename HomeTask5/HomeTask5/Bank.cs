@@ -10,28 +10,32 @@ namespace HomeTask5
     {
         public void Transfer(Account firstAccount, Account secondAccount, double sum)
         {
-            if (firstAccount.Open)
-            {
-                if (secondAccount.Open)
-                {
-                    if (firstAccount.Withdraw(sum))
-                    {
-                        secondAccount.AddFunds(sum);
-                    }
-                    else
-                    {
-                        Console.WriteLine("There is not enough funds on the first account");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Second account is closed. You can't transfer any funds to it.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("First account is closed. You can't transfer any funds from it.");
-            }
+			try
+			{
+				firstAccount.Withdraw(sum);
+			}
+			catch (InvalidOperationException ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+			catch (ArgumentOutOfRangeException ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+			try
+			{
+				secondAccount.AddFunds(sum);
+			}
+			catch (InvalidOperationException ex)
+			{
+				Console.WriteLine(ex.Message);
+				firstAccount.AddFunds(sum);
+			}
+			catch (ArgumentOutOfRangeException ex)
+			{
+				Console.WriteLine(ex.Message);
+				firstAccount.AddFunds(sum);
+			}
         }
     }
 }

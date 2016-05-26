@@ -43,7 +43,7 @@ namespace HomeTask5
                     return account;
                 }
             }
-            return null;
+			throw new NullReferenceException("У клиента нет счета с таким номером");
         }
 
         public int AccountsCount
@@ -61,26 +61,9 @@ namespace HomeTask5
             _accounts.Add(clientsAccount);
         }
 
-        public bool CloseAccount(string accountNumber)
+        public void CloseAccount(string accountNumber)
         {
-            foreach (var account in _accounts)
-            {
-                if (account.Number == accountNumber)
-                {
-                    if (account.Open)
-                    {
-                        account.Close();
-                        return true;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Account is already closed.");
-                        return false;
-                    }
-                }
-            }
-            Console.WriteLine("Client {0} doesn't have such account", _fio);
-            return false;
+			GetAccount(accountNumber).Close();
         }
 
         public double ShowFundsOnAccount(string clientsAccountNumber)

@@ -17,7 +17,7 @@ namespace HomeTask5
                 base.AddAccount(clientsAccount);
             }
             else
-                Console.WriteLine("You've reached the limit of accounts");
+				throw new InvalidOperationException("Данный клиент не может иметь больше счетов");
         }
     }
 }

@@ -14,35 +14,27 @@ namespace HomeTask5
         public AccumulativeAccount(double interestRate, string accountNumber, string accountOwner, double accountStartSum) :
             base(accountNumber, accountOwner, accountStartSum)
         {
-            if (interestRate >= 0)
+            if (interestRate < 0)
             {
-                _interestRate = interestRate;
-            }
-            else
-            {
-                Console.WriteLine("You can't create Savings Account without interest rate");
-            }
+				throw new ArgumentOutOfRangeException("Процентная ставка не может быть отрицательной");
+			}
+			_interestRate = interestRate;
             _firstPay = accountStartSum;
         }
 
         public static AccumulativeAccount CreateAccount(double interestRate, string accountNumber, string accountOwner, double startSum)
         {
-            AccumulativeAccount accumulativeAccount = new AccumulativeAccount(interestRate, accountNumber, accountOwner, startSum);
-            return accumulativeAccount;
+			AccumulativeAccount accumulativeAccount = new AccumulativeAccount(interestRate, accountNumber, accountOwner, startSum);
+			return accumulativeAccount;
         }
 
-        public override bool Withdraw(double sum)
+        public override void Withdraw(double sum)
         {
             if ( CurrentSum - sum < _firstPay)
             {
-                Console.WriteLine("You can't leave less, than " + _firstPay);
-                return false;
+				throw new ArgumentOutOfRangeException ("На счету не может оставать меньше, чем " + _firstPay);
             }
-            else
-            {
-                base.Withdraw(sum);
-                return true;
-            }
+            base.Withdraw(sum);
         }
 
         public double InterestRate

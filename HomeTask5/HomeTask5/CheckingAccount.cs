@@ -13,20 +13,17 @@ namespace HomeTask5
         public CheckingAccount(double subscriptionFee, string accountNumber, string accountOwner, double accountStartSum) :
             base(accountNumber, accountOwner, accountStartSum)
         {
-            if (subscriptionFee >= 0)
-            {
-                _subscriptionFee = subscriptionFee;
-            }
-            else
-            {
-                Console.WriteLine("You can't create Checking Account without subscription fee");
-            }
+			if (subscriptionFee < 0)
+			{
+				throw new ArgumentOutOfRangeException ("Абонентская плата не может быть отрицательной");
+			}
+			_subscriptionFee = subscriptionFee;
         }
 
         public static CheckingAccount CreateAccount(double subscriptionFee, string accountNumber, string accountOwner, double startSum)
         {
-            CheckingAccount checkingAccount = new CheckingAccount(subscriptionFee, accountNumber, accountOwner, startSum);
-            return checkingAccount;
+			CheckingAccount checkingAccount = new CheckingAccount(subscriptionFee, accountNumber, accountOwner, startSum);
+			return checkingAccount;
         }
 
         public double SubscriptionFee
@@ -36,14 +33,7 @@ namespace HomeTask5
 
         public void SubscriptionWithdraw()
         {
-            if (CurrentSum < _subscriptionFee)
-            {
-                Console.WriteLine("There is not enough funds for subscription fee");
-            }
-            else
-            {
-                Withdraw(_subscriptionFee);
-            }
+			Withdraw(_subscriptionFee);
         }
     }
 }

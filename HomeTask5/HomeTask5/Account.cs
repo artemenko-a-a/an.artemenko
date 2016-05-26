@@ -28,71 +28,57 @@ namespace HomeTask5
         {
             Number = accountNumber;
             Owner = accountOwner;
-            if (accountStartSum >= 0)
+            if (accountStartSum < 0)
             {
-                _currentSum = accountStartSum;
+				throw new ArgumentOutOfRangeException ("Нельзя открыть счет с отрицательным балансом");
             }
-            else
-            {
-                Console.WriteLine("You can't create account without funds");
-            }
+			_currentSum = accountStartSum;
             _open = true;
         }
 
         public static Account CreateAccount(string accountNumber, string accountOwner, double accountStartSum)
         {
-            Account savingsAccount = new Account(accountNumber, accountOwner, accountStartSum);
-            return savingsAccount;
+			Account savingsAccount = new Account(accountNumber, accountOwner, accountStartSum);
+			return savingsAccount;
         }
 
-        virtual public bool AddFunds(double sum)
+        virtual public void AddFunds(double sum)
         {
-            if (_open)
+            if (!_open)
             {
-                if (sum >= 0)
-                {
-                    _currentSum += sum;
-                    return true;
-                }
-                else
-                {
-                    Console.WriteLine("You can't add negative sum");
-                    return false;
-                }
+				throw new InvalidOperationException ("Операция невозможна, т.к. счет закрыт");
             }
-            else
-            {
-                Console.WriteLine("Account is closed");
-                return false;
-            }
+			if (sum < 0)
+			{
+				throw new ArgumentOutOfRangeException ("Нельзя положить на счет отрицательную сумму");
+			}
+			_currentSum += sum;
         }
 
-        virtual public bool Withdraw(double sum)
+        virtual public void Withdraw(double sum)
         {
-            if (_open)
+            if (!_open)
             {
-                if (sum <= _currentSum)
-                {
-                    _currentSum -= sum;
-                    return true;
-                }
-                Console.WriteLine("You don't have enough funds");
-                return false;
+				throw new InvalidOperationException ("Операция невозможна, т.к. счет закрыт");
             }
-            Console.WriteLine("Account is closed");
-            return false;
+			if (sum > _currentSum)
+			{
+				throw new InvalidOperationException ("Остаток на счете не может быть меньше нуля");
+			}
+			_currentSum -= sum;
         }
 
         public void Close()
         {
-            if (CurrentSum == 0)
+            if (CurrentSum != 0)
             {
-                _open = false;
+				throw new InvalidOperationException ("Операция невозможна, т.к. на счету есть средства");
             }
-            else
-            {
-                Console.WriteLine("You can't close the account with any funds on it");
-            }
+			if (_open == false)
+			{
+				throw new InvalidOperationException ("Аккаунт уже закрыт");
+			}
+			_open = false;
         }
     }
 }

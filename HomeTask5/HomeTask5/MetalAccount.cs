@@ -21,8 +21,8 @@ namespace HomeTask5
 
         public static MetalAccount CreateAccount(double metalCourse, string accountNumber, string accountOwner, double startSum)
         {
-           MetalAccount metalAccount = new MetalAccount(metalCourse, accountNumber, accountOwner, startSum);
-           return metalAccount;
+			MetalAccount metalAccount = new MetalAccount(metalCourse, accountNumber, accountOwner, startSum);
+			return metalAccount;
         }
 
         public double MetalWeight
@@ -35,48 +35,30 @@ namespace HomeTask5
             get { return _metalWeight * _metalCourse; }
         }
 
-        public override bool AddFunds(double sum)
+        public override void AddFunds(double sum)
         {
-            if (Open)
+            if (!Open)
             {
-                if (sum > 0)
-                {
-                    _metalWeight += sum / _metalWeight;
-                    return true;
-                }
-                else
-                {
-                    Console.WriteLine("You can't add negative sum");
-                    return false;
-                }
+				throw new InvalidOperationException ("Операция невозможна, т.к. счет закрыт");
             }
-            else
-            {
-                Console.WriteLine("Account is closed");
-                return false;
-            }   
+			if (sum < 0)
+			{
+				throw new ArgumentOutOfRangeException ("Нельзя положить на счет сумму меньше нуля");
+			}
+			_metalWeight += sum / _metalWeight;
         }
 
-        public override bool Withdraw(double sum)
+        public override void Withdraw(double sum)
         {
-            if (Open)
+            if (!Open)
             {
-                if (sum / _metalCourse <= _metalWeight)
-                {
-                    _metalWeight -= sum / _metalCourse;
-                    return true;
-                }
-                else
-                {
-                    Console.WriteLine("You don't have enough funds");
-                    return false;
-                }
-            }
-            else
-            {
-                Console.WriteLine("Account is closed");
-                return false;
-            }
+				throw new InvalidOperationException ("Операция невозможна, т.к. счет закрыт");
+			}
+			if (sum / _metalCourse > _metalWeight)
+			{
+				throw new ArgumentOutOfRangeException ("На счету недостаточно средств");
+			}
+			_metalWeight -= sum / _metalCourse;
         }
     }
 }
